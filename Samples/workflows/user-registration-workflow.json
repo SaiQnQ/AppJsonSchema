@@ -1,0 +1,97 @@
+{
+  "workflows": [
+    {
+      "id": "user-registration",
+      "name": "User Registration Process",
+      "trigger": {
+        "type": "form_submission",
+        "config": {
+          "form_id": "user-registration"
+        }
+      },
+      "steps": [
+        {
+          "id": "validate-user",
+          "type": "api_call",
+          "config": {
+            "endpoint": "/api/v1/users/validate",
+            "method": "POST",
+            "payload": {
+              "email": "${form.email}",
+              "username": "${form.username}"
+            }
+          },
+          "next_step": "create-user",
+          "on_error": "handle-validation-error"
+        },
+        {
+          "id": "create-user",
+          "type": "api_call",
+          "config": {
+            "endpoint": "/api/v1/users",
+            "method": "POST",
+            "payload": {
+              "name": "${form.name}",
+              "email": "${form.email}",
+              "password": "${form.password}",
+              "role": "user"
+            }
+          },
+          "next_step": "send-welcome-email",
+          "on_error": "handle-creation-error"
+        },
+        {
+          "id": "send-welcome-email",
+          "type": "notification",
+          "config": {
+            "template": "welcome-email",
+            "to": "${form.email}",
+            "data": {
+              "user_name": "${form.name}",
+              "login_url": "${config.app.url}/login"
+            }
+          },
+          "next_step": "create-profile"
+        },
+        {
+          "id": "create-profile",
+          "type": "api_call",
+          "config": {
+            "endpoint": "/api/v1/profiles",
+            "method": "POST",
+            "payload": {
+              "user_id": "${workflow.created_user_id}",
+              "default_settings": {
+                "notifications_enabled": true,
+                "theme": "light"
+              }
+            }
+          }
+        },
+        {
+          "id": "handle-validation-error",
+          "type": "notification",
+          "config": {
+            "template": "validation-error",
+            "to": "${form.email}",
+            "data": {
+              "error_message": "${error.message}"
+            }
+          }
+        },
+        {
+          "id": "handle-creation-error",
+          "type": "notification",
+          "config": {
+            "template": "registration-error",
+            "to": "${form.email}",
+            "data": {
+              "error_message": "${error.message}",
+              "support_email": "${config.support.email}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+} 

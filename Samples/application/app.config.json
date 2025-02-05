@@ -1,0 +1,30 @@
+{
+  "name": "Enterprise Dashboard",
+  "version": "1.0.0",
+  "description": "Enterprise-grade application management system",
+  "theme": {
+    "primary_color": "#2563eb",
+    "secondary_color": "#475569",
+    "dark_mode": true,
+    "custom_variables": {
+      "font-family": "Inter, sans-serif",
+      "border-radius": "0.375rem",
+      "spacing-unit": "0.25rem"
+    }
+  },
+  "authentication": {
+    "type": "jwt",
+    "providers": {
+      "google": true,
+      "github": true,
+      "microsoft": false
+    },
+    "session_timeout": 3600,
+    "refresh_token": true
+  },
+  "api": {
+    "base_url": "http://localhost:8000/api/v1",
+    "timeout": 30000,
+    "retry_attempts": 3
+  }
+} 

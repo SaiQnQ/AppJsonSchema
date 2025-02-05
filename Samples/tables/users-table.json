@@ -1,0 +1,113 @@
+{
+  "tables": [
+    {
+      "id": "users-table",
+      "title": "Users Management",
+      "api_endpoint": "/api/v1/users",
+      "pagination": {
+        "enabled": true,
+        "per_page_options": [10, 25, 50, 100],
+        "default_per_page": 25
+      },
+      "filters": [
+        {
+          "id": "search",
+          "type": "text",
+          "label": "Search",
+          "field": "name"
+        },
+        {
+          "id": "role",
+          "type": "select",
+          "label": "Role",
+          "field": "role",
+          "options": [
+            {
+              "value": "admin",
+              "label": "Administrator"
+            },
+            {
+              "value": "user",
+              "label": "Regular User"
+            }
+          ]
+        },
+        {
+          "id": "created_at",
+          "type": "date",
+          "label": "Created Date",
+          "field": "created_at"
+        }
+      ],
+      "columns": [
+        {
+          "id": "name",
+          "title": "Name",
+          "field": "name",
+          "sortable": true,
+          "filterable": true,
+          "type": "text"
+        },
+        {
+          "id": "email",
+          "title": "Email",
+          "field": "email",
+          "sortable": true,
+          "filterable": true,
+          "type": "text"
+        },
+        {
+          "id": "role",
+          "title": "Role",
+          "field": "role",
+          "sortable": true,
+          "filterable": true,
+          "type": "text",
+          "align": "center"
+        },
+        {
+          "id": "status",
+          "title": "Status",
+          "field": "status",
+          "sortable": true,
+          "filterable": true,
+          "type": "text",
+          "align": "center"
+        },
+        {
+          "id": "actions",
+          "title": "Actions",
+          "type": "actions",
+          "align": "right",
+          "width": "150px"
+        }
+      ],
+      "actions": {
+        "view": true,
+        "edit": true,
+        "delete": true,
+        "custom": [
+          {
+            "label": "Reset Password",
+            "icon": "key",
+            "handler": "handleResetPassword",
+            "condition": "isAdmin"
+          }
+        ]
+      },
+      "export": {
+        "enabled": true,
+        "formats": ["csv", "excel", "pdf"]
+      },
+      "import": {
+        "enabled": true,
+        "template_url": "/templates/users-import.xlsx",
+        "validation_rules": {
+          "name": "required|string",
+          "email": "required|email",
+          "role": "required|in:admin,user"
+        }
+      }
+    }
+  ]
+} 

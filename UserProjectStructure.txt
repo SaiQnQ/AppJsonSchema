@@ -1,0 +1,403 @@
+/config-samples
+  /application
+    app.config.json
+    navigation.config.json
+    pages.config.json
+  /forms
+    contact-form.json
+    registration-form.json
+    product-form.json
+  /tables
+    users-table.json
+    products-table.json
+    orders-table.json
+  /dashboard
+    admin-dashboard.json
+    sales-dashboard.json
+  /api
+    api.config.json
+    models.config.json
+  /auth
+    permissions.config.json
+    roles.config.json
+  /workflows
+    order-workflow.json
+    user-registration-workflow.json
+  README.md
+
+
+  // app.config.json
+interface AppConfig {
+  name: string;
+  version: string;
+  description: string;
+  theme: {
+    primary_color: string;
+    secondary_color: string;
+    dark_mode: boolean;
+    custom_variables: Record<string, string>;
+  };
+  authentication: {
+    type: 'jwt' | 'oauth' | 'custom';
+    providers?: {
+      google?: boolean;
+      github?: boolean;
+      microsoft?: boolean;
+    };
+    session_timeout: number;
+    refresh_token: boolean;
+  };
+  api: {
+    base_url: string;
+    timeout: number;
+    retry_attempts: number;
+  };
+}
+
+
+// navigation.config.json
+interface NavigationConfig {
+  menu_items: {
+    id: string;
+    title: string;
+    icon: string;
+    path: string;
+    roles: string[];
+    children?: NavigationItem[];
+    order: number;
+    badge?: {
+      text: string;
+      variant: string;
+    };
+  }[];
+  settings: {
+    type: 'sidebar' | 'horizontal' | 'both';
+    collapsed_by_default?: boolean;
+    show_search?: boolean;
+    show_notifications?: boolean;
+  };
+}
+
+
+// pages.config.json
+interface PagesConfig {
+  routes: {
+    id: string;
+    path: string;
+    component: string;
+    layout: string;
+    auth_required: boolean;
+    roles: string[];
+    meta: {
+      title: string;
+      description: string;
+    };
+    data_dependencies?: {
+      api_endpoint: string;
+      method: string;
+      params?: Record<string, any>;
+    }[];
+  }[];
+}
+
+
+// forms.config.json
+interface FormsConfig {
+  forms: {
+    id: string;
+    title: string;
+    description?: string;
+    api_endpoint: string;
+    method: 'POST' | 'PUT' | 'PATCH';
+    sections: {
+      id: string;
+      title: string;
+      fields: {
+        id: string;
+        type: 'text' | 'number' | 'select' | 'radio' | 'checkbox' | 'file' | 'date' | 'rich-text' | 'custom';
+        label: string;
+        placeholder?: string;
+        default_value?: any;
+        validation?: {
+          required?: boolean;
+          pattern?: string;
+          min?: number;
+          max?: number;
+          custom?: string;
+        };
+        options?: {
+          value: string | number;
+          label: string;
+        }[];
+        dependent_on?: {
+          field: string;
+          value: any;
+        };
+        permissions?: string[];
+      }[];
+    }[];
+    actions: {
+      submit?: {
+        label: string;
+        redirect_to?: string;
+        success_message?: string;
+      };
+      cancel?: {
+        label: string;
+        redirect_to: string;
+      };
+    };
+  }[];
+}
+
+
+// tables.config.json
+interface TablesConfig {
+  tables: {
+    id: string;
+    title: string;
+    api_endpoint: string;
+    pagination: {
+      enabled: boolean;
+      per_page_options: number[];
+      default_per_page: number;
+    };
+    filters: {
+      id: string;
+      type: 'text' | 'select' | 'date' | 'number';
+      label: string;
+      field: string;
+      options?: {
+        value: any;
+        label: string;
+      }[];
+    }[];
+    columns: {
+      id: string;
+      title: string;
+      field: string;
+      sortable: boolean;
+      filterable: boolean;
+      type: 'text' | 'number' | 'date' | 'boolean' | 'image' | 'actions';
+      format?: string;
+      width?: string;
+      align?: 'left' | 'center' | 'right';
+    }[];
+    actions: {
+      view?: boolean;
+      edit?: boolean;
+      delete?: boolean;
+      custom?: {
+        label: string;
+        icon: string;
+        handler: string;
+        condition?: string;
+      }[];
+    };
+    export: {
+      enabled: boolean;
+      formats: ('csv' | 'excel' | 'pdf')[];
+    };
+    import: {
+      enabled: boolean;
+      template_url?: string;
+      validation_rules?: Record<string, any>;
+    };
+  }[];
+}
+
+
+// dashboard.config.json
+interface DashboardConfig {
+  layouts: {
+    id: string;
+    title: string;
+    roles: string[];
+    widgets: {
+      id: string;
+      type: 'chart' | 'stats' | 'table' | 'list' | 'custom';
+      title: string;
+      width: number;
+      height: number;
+      position: {
+        x: number;
+        y: number;
+      };
+      data_source: {
+        type: 'api' | 'static';
+        endpoint?: string;
+        refresh_interval?: number;
+        static_data?: any;
+      };
+      settings: {
+        chart_type?: 'line' | 'bar' | 'pie' | 'donut';
+        colors?: string[];
+        show_legend?: boolean;
+        // Other widget-specific settings
+      };
+    }[];
+  }[];
+}
+
+
+// api.config.json
+interface APIConfig {
+  endpoints: {
+    id: string;
+    path: string;
+    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+    auth_required: boolean;
+    rate_limit?: {
+      requests: number;
+      duration: number;
+    };
+    request_schema?: Record<string, any>;
+    response_schema?: Record<string, any>;
+    mock_response?: any;
+    cache?: {
+      enabled: boolean;
+      duration: number;
+    };
+  }[];
+  models: {
+    name: string;
+    fields: {
+      name: string;
+      type: string;
+      required: boolean;
+      unique?: boolean;
+      default?: any;
+      relationships?: {
+        type: 'one_to_one' | 'one_to_many' | 'many_to_many';
+        model: string;
+        foreign_key: string;
+      };
+    }[];
+  }[];
+}
+
+
+// permissions.config.json
+interface PermissionsConfig {
+  roles: {
+    id: string;
+    name: string;
+    description: string;
+    permissions: string[];
+    default?: boolean;
+  }[];
+  permissions: {
+    id: string;
+    name: string;
+    description: string;
+    category: string;
+  }[];
+}
+
+
+// notifications.config.json
+interface NotificationsConfig {
+  templates: {
+    id: string;
+    type: 'email' | 'in_app' | 'push';
+    title: string;
+    content: string;
+    variables: string[];
+    triggers: {
+      event: string;
+      conditions?: Record<string, any>;
+    }[];
+  }[];
+  settings: {
+    email_provider?: {
+      service: string;
+      credentials: Record<string, string>;
+    };
+    push_provider?: {
+      service: string;
+      credentials: Record<string, string>;
+    };
+  };
+}
+
+
+// notifications.config.json
+interface NotificationsConfig {
+  templates: {
+    id: string;
+    type: 'email' | 'in_app' | 'push';
+    title: string;
+    content: string;
+    variables: string[];
+    triggers: {
+      event: string;
+      conditions?: Record<string, any>;
+    }[];
+  }[];
+  settings: {
+    email_provider?: {
+      service: string;
+      credentials: Record<string, string>;
+    };
+    push_provider?: {
+      service: string;
+      credentials: Record<string, string>;
+    };
+  };
+}
+
+
+// workflows.config.json
+interface WorkflowConfig {
+  workflows: {
+    id: string;
+    name: string;
+    trigger: {
+      type: 'form_submission' | 'api_call' | 'scheduled';
+      config: Record<string, any>;
+    };
+    steps: {
+      id: string;
+      type: 'api_call' | 'notification' | 'condition' | 'custom';
+      config: Record<string, any>;
+      next_step?: string;
+      on_error?: string;
+    }[];
+  }[];
+}
+
+
+// Next.js UI
+/src
+  /components
+    /forms
+    /tables
+    /dashboard
+    /navigation
+    /common
+  /hooks
+  /services
+    /api
+    /auth
+    /generator
+  /pages
+  /layouts
+  /styles
+  /utils
+
+// FastAPI
+  /app
+  /api
+    /v1
+      /auth
+      /forms
+      /tables
+      /dashboard
+  /core
+    /config
+    /generator
+    /database
+    /security
+  /models
+  /schemas
+  /services

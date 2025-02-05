@@ -1,0 +1,87 @@
+{
+  "endpoints": [
+    {
+      "id": "get-users",
+      "path": "/users",
+      "method": "GET",
+      "auth_required": true,
+      "rate_limit": {
+        "requests": 100,
+        "duration": 3600
+      },
+      "cache": {
+        "enabled": true,
+        "duration": 300
+      }
+    },
+    {
+      "id": "create-user",
+      "path": "/users",
+      "method": "POST",
+      "auth_required": true,
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "minLength": 2},
+          "email": {"type": "string", "format": "email"},
+          "password": {"type": "string", "minLength": 8},
+          "role": {"type": "string", "enum": ["admin", "user"]}
+        },
+        "required": ["name", "email", "password", "role"]
+      },
+      "response_schema": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "email": {"type": "string"},
+          "role": {"type": "string"}
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "name": "User",
+      "fields": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "required": true,
+          "unique": true
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": true,
+          "unique": true
+        },
+        {
+          "name": "password_hash",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "role",
+          "type": "string",
+          "required": true,
+          "default": "user"
+        },
+        {
+          "name": "profile",
+          "type": "object",
+          "relationships": {
+            "type": "one_to_one",
+            "model": "UserProfile",
+            "foreign_key": "user_id"
+          }
+        }
+      ]
+    }
+  ]
+} 

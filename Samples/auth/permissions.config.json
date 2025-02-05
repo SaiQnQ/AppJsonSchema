@@ -1,0 +1,87 @@
+{
+  "roles": [
+    {
+      "id": "admin",
+      "name": "Administrator",
+      "description": "Full system access",
+      "permissions": [
+        "users:create",
+        "users:read",
+        "users:update",
+        "users:delete",
+        "roles:manage",
+        "system:manage",
+        "reports:view",
+        "reports:create"
+      ],
+      "default": false
+    },
+    {
+      "id": "user",
+      "name": "Regular User",
+      "description": "Standard user access",
+      "permissions": [
+        "users:read",
+        "profile:manage",
+        "reports:view"
+      ],
+      "default": true
+    }
+  ],
+  "permissions": [
+    {
+      "id": "users:create",
+      "name": "Create Users",
+      "description": "Ability to create new users",
+      "category": "User Management"
+    },
+    {
+      "id": "users:read",
+      "name": "View Users",
+      "description": "Ability to view user information",
+      "category": "User Management"
+    },
+    {
+      "id": "users:update",
+      "name": "Update Users",
+      "description": "Ability to modify user information",
+      "category": "User Management"
+    },
+    {
+      "id": "users:delete",
+      "name": "Delete Users",
+      "description": "Ability to remove users from the system",
+      "category": "User Management"
+    },
+    {
+      "id": "roles:manage",
+      "name": "Manage Roles",
+      "description": "Ability to manage roles and permissions",
+      "category": "System Administration"
+    },
+    {
+      "id": "system:manage",
+      "name": "Manage System",
+      "description": "Ability to manage system settings",
+      "category": "System Administration"
+    },
+    {
+      "id": "profile:manage",
+      "name": "Manage Profile",
+      "description": "Ability to manage own profile",
+      "category": "User Profile"
+    },
+    {
+      "id": "reports:view",
+      "name": "View Reports",
+      "description": "Ability to view reports",
+      "category": "Reporting"
+    },
+    {
+      "id": "reports:create",
+      "name": "Create Reports",
+      "description": "Ability to create new reports",
+      "category": "Reporting"
+    }
+  ]
+} 

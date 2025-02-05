@@ -1,0 +1,84 @@
+{
+  "layouts": [
+    {
+      "id": "admin-dashboard",
+      "title": "Admin Dashboard",
+      "roles": ["admin"],
+      "widgets": [
+        {
+          "id": "users-stats",
+          "type": "stats",
+          "title": "User Statistics",
+          "width": 3,
+          "height": 1,
+          "position": {
+            "x": 0,
+            "y": 0
+          },
+          "data_source": {
+            "type": "api",
+            "endpoint": "/api/v1/stats/users",
+            "refresh_interval": 300
+          }
+        },
+        {
+          "id": "user-growth",
+          "type": "chart",
+          "title": "User Growth",
+          "width": 6,
+          "height": 2,
+          "position": {
+            "x": 3,
+            "y": 0
+          },
+          "data_source": {
+            "type": "api",
+            "endpoint": "/api/v1/stats/user-growth",
+            "refresh_interval": 3600
+          },
+          "settings": {
+            "chart_type": "line",
+            "colors": ["#2563eb", "#475569"],
+            "show_legend": true
+          }
+        },
+        {
+          "id": "recent-activities",
+          "type": "list",
+          "title": "Recent Activities",
+          "width": 3,
+          "height": 2,
+          "position": {
+            "x": 9,
+            "y": 0
+          },
+          "data_source": {
+            "type": "api",
+            "endpoint": "/api/v1/activities",
+            "refresh_interval": 60
+          }
+        },
+        {
+          "id": "system-health",
+          "type": "custom",
+          "title": "System Health",
+          "width": 12,
+          "height": 1,
+          "position": {
+            "x": 0,
+            "y": 2
+          },
+          "data_source": {
+            "type": "api",
+            "endpoint": "/api/v1/system/health",
+            "refresh_interval": 30
+          },
+          "settings": {
+            "show_status": true,
+            "show_metrics": true
+          }
+        }
+      ]
+    }
+  ]
+} 

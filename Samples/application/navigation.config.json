@@ -1,0 +1,54 @@
+{
+  "menu_items": [
+    {
+      "id": "dashboard",
+      "title": "Dashboard",
+      "icon": "dashboard",
+      "path": "/dashboard",
+      "roles": ["admin", "user"],
+      "order": 1
+    },
+    {
+      "id": "users",
+      "title": "User Management",
+      "icon": "users",
+      "path": "/users",
+      "roles": ["admin"],
+      "order": 2,
+      "children": [
+        {
+          "id": "users-list",
+          "title": "Users List",
+          "path": "/users/list",
+          "roles": ["admin"],
+          "order": 1
+        },
+        {
+          "id": "roles",
+          "title": "Roles & Permissions",
+          "path": "/users/roles",
+          "roles": ["admin"],
+          "order": 2,
+          "badge": {
+            "text": "New",
+            "variant": "success"
+          }
+        }
+      ]
+    },
+    {
+      "id": "products",
+      "title": "Products",
+      "icon": "box",
+      "path": "/products",
+      "roles": ["admin", "user"],
+      "order": 3
+    }
+  ],
+  "settings": {
+    "type": "sidebar",
+    "collapsed_by_default": false,
+    "show_search": true,
+    "show_notifications": true
+  }
+} 

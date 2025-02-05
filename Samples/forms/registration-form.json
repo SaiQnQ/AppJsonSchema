@@ -1,0 +1,91 @@
+{
+  "forms": [
+    {
+      "id": "user-registration",
+      "title": "User Registration",
+      "description": "Create a new user account",
+      "api_endpoint": "/api/v1/users",
+      "method": "POST",
+      "sections": [
+        {
+          "id": "personal-info",
+          "title": "Personal Information",
+          "fields": [
+            {
+              "id": "full_name",
+              "type": "text",
+              "label": "Full Name",
+              "placeholder": "Enter your full name",
+              "validation": {
+                "required": true,
+                "pattern": "^[a-zA-Z\\s]{2,50}$"
+              }
+            },
+            {
+              "id": "email",
+              "type": "text",
+              "label": "Email Address",
+              "placeholder": "Enter your email",
+              "validation": {
+                "required": true,
+                "pattern": "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"
+              }
+            },
+            {
+              "id": "password",
+              "type": "text",
+              "label": "Password",
+              "placeholder": "Enter your password",
+              "validation": {
+                "required": true,
+                "pattern": "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+              }
+            }
+          ]
+        },
+        {
+          "id": "preferences",
+          "title": "Preferences",
+          "fields": [
+            {
+              "id": "role",
+              "type": "select",
+              "label": "User Role",
+              "options": [
+                {
+                  "value": "user",
+                  "label": "Regular User"
+                },
+                {
+                  "value": "admin",
+                  "label": "Administrator"
+                }
+              ],
+              "default_value": "user",
+              "validation": {
+                "required": true
+              }
+            },
+            {
+              "id": "notifications",
+              "type": "checkbox",
+              "label": "Email Notifications",
+              "default_value": true
+            }
+          ]
+        }
+      ],
+      "actions": {
+        "submit": {
+          "label": "Create Account",
+          "redirect_to": "/dashboard",
+          "success_message": "Account created successfully!"
+        },
+        "cancel": {
+          "label": "Cancel",
+          "redirect_to": "/login"
+        }
+      }
+    }
+  ]
+} 
