@@ -1,0 +1,188 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Authentication feature configuration",
+  "type": "object",
+  "required": ["auth"],
+  "properties": {
+    "auth": {
+      "type": "object",
+      "required": ["enabled", "providers", "session"],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable/disable authentication feature",
+          "default": true
+        },
+        "providers": {
+          "type": "object",
+          "description": "Authentication providers configuration",
+          "properties": {
+            "local": {
+              "type": "object",
+              "required": ["enabled"],
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "passwordPolicy": {
+                  "type": "object",
+                  "properties": {
+                    "minLength": {
+                      "type": "integer",
+                      "default": 8
+                    },
+                    "requireNumbers": {
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "requireSpecialChars": {
+                      "type": "boolean",
+                      "default": true
+                    }
+                  }
+                }
+              }
+            },
+            "google": {
+              "type": "object",
+              "required": ["enabled"],
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "clientId": {
+                  "type": "string"
+                },
+                "clientSecret": {
+                  "type": "string"
+                }
+              }
+            },
+            "github": {
+              "type": "object",
+              "required": ["enabled"],
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "clientId": {
+                  "type": "string"
+                },
+                "clientSecret": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "session": {
+          "type": "object",
+          "properties": {
+            "jwt": {
+              "type": "object",
+              "properties": {
+                "secret": {
+                  "type": "string"
+                },
+                "expiresIn": {
+                  "type": "string",
+                  "default": "1d"
+                }
+              }
+            },
+            "refreshToken": {
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "expiresIn": {
+                  "type": "string",
+                  "default": "7d"
+                }
+              }
+            }
+          }
+        },
+        "ui": {
+          "type": "object",
+          "properties": {
+            "loginPage": {
+              "type": "object",
+              "properties": {
+                "logo": {
+                  "type": "string"
+                },
+                "backgroundImage": {
+                  "type": "string"
+                },
+                "welcomeMessage": {
+                  "type": "string"
+                }
+              }
+            },
+            "registerPage": {
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "requireEmailVerification": {
+                  "type": "boolean",
+                  "default": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "auth": {
+        "enabled": true,
+        "providers": {
+          "local": {
+            "enabled": true,
+            "passwordPolicy": {
+              "minLength": 8,
+              "requireNumbers": true,
+              "requireSpecialChars": true
+            }
+          },
+          "google": {
+            "enabled": true,
+            "clientId": "${GOOGLE_CLIENT_ID}",
+            "clientSecret": "${GOOGLE_CLIENT_SECRET}"
+          }
+        },
+        "session": {
+          "jwt": {
+            "secret": "${JWT_SECRET}",
+            "expiresIn": "1d"
+          },
+          "refreshToken": {
+            "enabled": true,
+            "expiresIn": "7d"
+          }
+        },
+        "ui": {
+          "loginPage": {
+            "logo": "/images/logo.png",
+            "welcomeMessage": "Welcome back!"
+          },
+          "registerPage": {
+            "enabled": true,
+            "requireEmailVerification": true
+          }
+        }
+      }
+    }
+  ]
+} 

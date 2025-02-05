@@ -1,0 +1,238 @@
+{
+  "teams": {
+    "creation_engine": {
+      "name": "Creation Engine Team",
+      "responsibilities": [
+        "Project scaffolding",
+        "Component generation",
+        "Template management"
+      ],
+      "directories": {
+        "frontend": [
+          "src/generators",
+          "src/templates",
+          "src/builders"
+        ],
+        "backend": [
+          "app/generators",
+          "app/templates",
+          "app/builders"
+        ],
+        "config": [
+          "config/generators",
+          "config/templates"
+        ]
+      },
+      "dependencies": {
+        "frontend": [
+          "handlebars",
+          "ejs",
+          "commander"
+        ],
+        "backend": [
+          "jinja2",
+          "click",
+          "cookiecutter"
+        ]
+      }
+    },
+    "rules_engine": {
+      "name": "Rules Engine Team",
+      "responsibilities": [
+        "Validation rules",
+        "Business logic",
+        "Workflow rules"
+      ],
+      "directories": {
+        "frontend": [
+          "src/rules",
+          "src/validators",
+          "src/workflows"
+        ],
+        "backend": [
+          "app/rules",
+          "app/validators",
+          "app/workflows"
+        ],
+        "config": [
+          "config/rules",
+          "config/workflows"
+        ]
+      },
+      "dependencies": {
+        "frontend": [
+          "yup",
+          "zod",
+          "xstate"
+        ],
+        "backend": [
+          "pydantic",
+          "jsonschema",
+          "transitions"
+        ]
+      }
+    },
+    "thematic_engine": {
+      "name": "Thematic Engine Team",
+      "responsibilities": [
+        "Theme management",
+        "Style system",
+        "Component theming"
+      ],
+      "directories": {
+        "frontend": [
+          "src/themes",
+          "src/styles",
+          "src/components/theme"
+        ],
+        "config": [
+          "config/themes",
+          "config/styles"
+        ]
+      },
+      "dependencies": {
+        "frontend": [
+          "tailwindcss",
+          "postcss",
+          "autoprefixer",
+          "@emotion/react",
+          "@emotion/styled"
+        ]
+      }
+    },
+    "authentication_engine": {
+      "name": "Authentication Engine Team",
+      "responsibilities": [
+        "Authentication system",
+        "Authorization",
+        "User management"
+      ],
+      "directories": {
+        "frontend": [
+          "src/auth",
+          "src/components/auth",
+          "src/hooks/auth"
+        ],
+        "backend": [
+          "app/auth",
+          "app/security",
+          "app/users"
+        ],
+        "config": [
+          "config/auth",
+          "config/security"
+        ]
+      },
+      "dependencies": {
+        "frontend": [
+          "next-auth",
+          "jose",
+          "@auth/core"
+        ],
+        "backend": [
+          "python-jose",
+          "passlib",
+          "python-multipart"
+        ]
+      }
+    },
+    "migration_engine": {
+      "name": "Migration Engine Team",
+      "responsibilities": [
+        "Database migrations",
+        "Data seeding",
+        "Schema management"
+      ],
+      "directories": {
+        "backend": [
+          "app/migrations",
+          "app/seeders",
+          "app/models"
+        ],
+        "config": [
+          "config/database",
+          "config/migrations"
+        ]
+      },
+      "dependencies": {
+        "backend": [
+          "alembic",
+          "sqlalchemy",
+          "prisma",
+          "typeorm"
+        ]
+      }
+    },
+    "analytics_engine": {
+      "name": "Analytics Engine Team",
+      "responsibilities": [
+        "Performance monitoring",
+        "User analytics",
+        "Error tracking"
+      ],
+      "directories": {
+        "frontend": [
+          "src/analytics",
+          "src/monitoring",
+          "src/tracking"
+        ],
+        "backend": [
+          "app/analytics",
+          "app/monitoring",
+          "app/metrics"
+        ],
+        "config": [
+          "config/analytics",
+          "config/monitoring"
+        ]
+      },
+      "dependencies": {
+        "frontend": [
+          "@sentry/react",
+          "posthog-js",
+          "mixpanel-browser"
+        ],
+        "backend": [
+          "sentry-sdk",
+          "prometheus-client",
+          "opentelemetry-api"
+        ]
+      }
+    },
+    "testing_engine": {
+      "name": "Testing Engine Team",
+      "responsibilities": [
+        "Unit testing",
+        "Integration testing",
+        "E2E testing"
+      ],
+      "directories": {
+        "frontend": [
+          "src/__tests__",
+          "src/test-utils",
+          "cypress"
+        ],
+        "backend": [
+          "tests",
+          "app/test-utils"
+        ],
+        "config": [
+          "config/testing"
+        ]
+      },
+      "dependencies": {
+        "frontend": [
+          "jest",
+          "@testing-library/react",
+          "cypress",
+          "playwright"
+        ],
+        "backend": [
+          "pytest",
+          "pytest-cov",
+          "pytest-asyncio"
+        ]
+      }
+    }
+  }
+} 
