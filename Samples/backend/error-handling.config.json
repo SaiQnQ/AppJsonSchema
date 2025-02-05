@@ -1,0 +1,78 @@
+{
+  "error_handling": {
+    "response_format": {
+      "error": {
+        "code": "string",
+        "message": "string",
+        "details": "object?",
+        "timestamp": "datetime"
+      }
+    },
+    "status_codes": {
+      "validation_error": 422,
+      "not_found": 404,
+      "unauthorized": 401,
+      "forbidden": 403,
+      "internal_error": 500
+    },
+    "error_codes": {
+      "AUTH": {
+        "INVALID_CREDENTIALS": {
+          "code": "AUTH_001",
+          "message": "Invalid email or password",
+          "status": 401
+        },
+        "TOKEN_EXPIRED": {
+          "code": "AUTH_002",
+          "message": "Authentication token has expired",
+          "status": 401
+        },
+        "INSUFFICIENT_PERMISSIONS": {
+          "code": "AUTH_003",
+          "message": "Insufficient permissions to perform this action",
+          "status": 403
+        }
+      },
+      "USER": {
+        "NOT_FOUND": {
+          "code": "USER_001",
+          "message": "User not found",
+          "status": 404
+        },
+        "EMAIL_EXISTS": {
+          "code": "USER_002",
+          "message": "Email already registered",
+          "status": 422
+        },
+        "INVALID_INPUT": {
+          "code": "USER_003",
+          "message": "Invalid user input",
+          "status": 422
+        }
+      },
+      "SYSTEM": {
+        "INTERNAL_ERROR": {
+          "code": "SYS_001",
+          "message": "An internal error occurred",
+          "status": 500
+        },
+        "SERVICE_UNAVAILABLE": {
+          "code": "SYS_002",
+          "message": "Service temporarily unavailable",
+          "status": 503
+        }
+      }
+    },
+    "logging": {
+      "levels": {
+        "validation_error": "warning",
+        "not_found": "info",
+        "unauthorized": "warning",
+        "forbidden": "warning",
+        "internal_error": "error"
+      },
+      "include_stack_trace": true,
+      "mask_sensitive_data": ["password", "token", "secret"]
+    }
+  }
+} 

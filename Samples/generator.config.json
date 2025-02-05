@@ -1,0 +1,95 @@
+{
+  "generator": {
+    "version": "1.0.0",
+    "features": {
+      "authentication": {
+        "enabled": "${ENABLE_AUTH}",
+        "options": {
+          "jwt": true,
+          "social_login": false,
+          "forgot_password": true
+        }
+      },
+      "dashboard": {
+        "enabled": "${ENABLE_DASHBOARD}",
+        "widgets": {
+          "stats": true,
+          "charts": true,
+          "recent_activities": true
+        }
+      },
+      "user_management": {
+        "enabled": "${ENABLE_USER_MANAGEMENT}",
+        "features": {
+          "roles": true,
+          "permissions": true,
+          "profile": true
+        }
+      }
+    },
+    "database": {
+      "type": "${USER_SELECTED_DB}",
+      "setup": {
+        "run_migrations": true,
+        "seed_data": false
+      }
+    },
+    "deployment": {
+      "platforms": {
+        "docker": {
+          "enabled": true,
+          "compose": true
+        },
+        "vercel": {
+          "enabled": false,
+          "team": "${VERCEL_TEAM}",
+          "project": "${VERCEL_PROJECT}"
+        }
+      },
+      "environment": {
+        "development": {
+          "api_url": "http://localhost:8000",
+          "web_url": "http://localhost:3000"
+        },
+        "production": {
+          "api_url": "${PROD_API_URL}",
+          "web_url": "${PROD_WEB_URL}"
+        }
+      }
+    },
+    "dependencies": {
+      "core": {
+        "next": "14.1.0",
+        "react": "18.2.0",
+        "fastapi": "0.109.0",
+        "sqlalchemy": "2.0.25"
+      },
+      "optional": {
+        "dashboard": [
+          "@tremor/react",
+          "recharts"
+        ],
+        "authentication": [
+          "next-auth",
+          "jose"
+        ],
+        "forms": [
+          "formik",
+          "yup"
+        ]
+      }
+    },
+    "templates": {
+      "directory": "templates",
+      "customization": {
+        "allowed": true,
+        "override_directory": "custom-templates"
+      }
+    },
+    "validation": {
+      "check_dependencies": true,
+      "verify_database": true,
+      "test_connections": true
+    }
+  }
+} 

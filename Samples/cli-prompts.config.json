@@ -1,0 +1,151 @@
+{
+  "prompts": {
+    "project": {
+      "name": {
+        "type": "input",
+        "message": "What is your project name?",
+        "default": "my-app",
+        "validation": "^[a-zA-Z0-9-_]+$"
+      },
+      "description": {
+        "type": "input",
+        "message": "Provide a brief description of your project:",
+        "optional": true
+      }
+    },
+    "database": {
+      "provider": {
+        "type": "select",
+        "message": "Select your database provider:",
+        "choices": [
+          {
+            "name": "PostgreSQL",
+            "value": "postgresql",
+            "description": "Recommended for complex queries and JSON support"
+          },
+          {
+            "name": "MySQL",
+            "value": "mysql",
+            "description": "Popular open-source database"
+          },
+          {
+            "name": "Supabase",
+            "value": "supabase",
+            "description": "PostgreSQL with built-in auth and realtime"
+          }
+        ]
+      },
+      "connection": {
+        "postgresql": {
+          "host": {
+            "type": "input",
+            "message": "Database host:",
+            "default": "localhost"
+          },
+          "port": {
+            "type": "input",
+            "message": "Database port:",
+            "default": "5432",
+            "validation": "^[0-9]+$"
+          },
+          "name": {
+            "type": "input",
+            "message": "Database name:",
+            "required": true
+          },
+          "username": {
+            "type": "input",
+            "message": "Database username:",
+            "required": true
+          },
+          "password": {
+            "type": "password",
+            "message": "Database password:",
+            "required": true
+          }
+        },
+        "mysql": {
+          "host": {
+            "type": "input",
+            "message": "Database host:",
+            "default": "localhost"
+          },
+          "port": {
+            "type": "input",
+            "message": "Database port:",
+            "default": "3306",
+            "validation": "^[0-9]+$"
+          },
+          "name": {
+            "type": "input",
+            "message": "Database name:",
+            "required": true
+          },
+          "username": {
+            "type": "input",
+            "message": "Database username:",
+            "required": true
+          },
+          "password": {
+            "type": "password",
+            "message": "Database password:",
+            "required": true
+          }
+        },
+        "supabase": {
+          "project_url": {
+            "type": "input",
+            "message": "Supabase Project URL:",
+            "required": true
+          },
+          "anon_key": {
+            "type": "password",
+            "message": "Supabase Anon Key:",
+            "required": true
+          },
+          "service_role_key": {
+            "type": "password",
+            "message": "Supabase Service Role Key:",
+            "required": true
+          }
+        }
+      }
+    },
+    "features": {
+      "authentication": {
+        "type": "confirm",
+        "message": "Do you want to include authentication?",
+        "default": true
+      },
+      "dashboard": {
+        "type": "confirm",
+        "message": "Do you want to include a dashboard?",
+        "default": true,
+        "when": "answers.features.authentication === true"
+      },
+      "user_management": {
+        "type": "confirm",
+        "message": "Do you want to include user management?",
+        "default": true,
+        "when": "answers.features.authentication === true"
+      }
+    },
+    "deployment": {
+      "platform": {
+        "type": "multiselect",
+        "message": "Select deployment platforms:",
+        "choices": [
+          {
+            "name": "Docker",
+            "value": "docker",
+            "checked": true
+          },
+          {
+            "name": "Vercel",
+            "value": "vercel"
+          }
+        ]
+      }
+    }
+  }
+} 

@@ -1,0 +1,85 @@
+{
+  "testing": {
+    "frontend": {
+      "framework": "jest",
+      "setup": {
+        "test_environment": "jsdom",
+        "setup_files": ["@testing-library/jest-dom"],
+        "coverage_threshold": {
+          "global": {
+            "statements": 80,
+            "branches": 80,
+            "functions": 80,
+            "lines": 80
+          }
+        }
+      },
+      "directories": {
+        "test": "src/__tests__",
+        "coverage": "coverage"
+      },
+      "mocks": {
+        "api_calls": true,
+        "local_storage": true,
+        "authentication": true
+      }
+    },
+    "backend": {
+      "framework": "pytest",
+      "setup": {
+        "test_database": {
+          "use_temporary": true,
+          "migrations": true
+        },
+        "coverage_threshold": {
+          "total": 85,
+          "missing": 0
+        },
+        "fixtures_path": "tests/fixtures"
+      },
+      "directories": {
+        "test": "tests",
+        "coverage": ".coverage"
+      },
+      "mocks": {
+        "external_services": true,
+        "email": true,
+        "file_storage": true
+      }
+    },
+    "e2e": {
+      "framework": "playwright",
+      "browsers": ["chromium", "firefox"],
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "recording": {
+        "video": true,
+        "screenshots": "on-failure"
+      },
+      "scenarios": [
+        {
+          "name": "authentication",
+          "tests": ["login", "register", "forgot-password"]
+        },
+        {
+          "name": "user-management",
+          "tests": ["create-user", "edit-user", "delete-user"]
+        },
+        {
+          "name": "dashboard",
+          "tests": ["view-stats", "interact-with-widgets"]
+        }
+      ]
+    },
+    "ci": {
+      "run_unit_tests": true,
+      "run_integration_tests": true,
+      "run_e2e_tests": {
+        "on_pull_request": false,
+        "on_deploy": true
+      }
+    }
+  }
+} 

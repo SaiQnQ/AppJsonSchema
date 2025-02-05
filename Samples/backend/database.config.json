@@ -1,0 +1,114 @@
+{
+  "database": {
+    "selected_provider": "${USER_SELECTED_DB}",
+    "providers": {
+      "postgresql": {
+        "version": "14",
+        "connection": {
+          "host": "${DB_HOST}",
+          "port": 5432,
+          "database": "${DB_NAME}",
+          "username": "${DB_USER}",
+          "password": "${DB_PASSWORD}",
+          "ssl": false
+        }
+      },
+      "mysql": {
+        "version": "8",
+        "connection": {
+          "host": "${DB_HOST}",
+          "port": 3306,
+          "database": "${DB_NAME}",
+          "username": "${DB_USER}",
+          "password": "${DB_PASSWORD}",
+          "ssl": false
+        }
+      },
+      "supabase": {
+        "project_url": "${SUPABASE_PROJECT_URL}",
+        "anon_key": "${SUPABASE_ANON_KEY}",
+        "service_role_key": "${SUPABASE_SERVICE_ROLE_KEY}"
+      }
+    },
+    "models": {
+      "required": {
+        "users": {
+          "enabled": true,
+          "columns": [
+            {
+              "name": "id",
+              "type": {
+                "postgresql": "uuid",
+                "mysql": "varchar(36)",
+                "supabase": "uuid"
+              },
+              "primary_key": true,
+              "default": {
+                "postgresql": "uuid_generate_v4()",
+                "mysql": "(UUID())",
+                "supabase": "uuid_generate_v4()"
+              }
+            },
+            {
+              "name": "email",
+              "type": {
+                "postgresql": "varchar(255)",
+                "mysql": "varchar(255)",
+                "supabase": "varchar(255)"
+              },
+              "unique": true,
+              "nullable": false
+            },
+            {
+              "name": "password_hash",
+              "type": {
+                "postgresql": "varchar(255)",
+                "mysql": "varchar(255)",
+                "supabase": "varchar(255)"
+              },
+              "nullable": false
+            }
+          ]
+        }
+      },
+      "optional": {
+        "user_profiles": {
+          "enabled": "${ENABLE_USER_PROFILES}",
+          "columns": [
+            {
+              "name": "id",
+              "type": {
+                "postgresql": "uuid",
+                "mysql": "varchar(36)",
+                "supabase": "uuid"
+              },
+              "primary_key": true
+            },
+            {
+              "name": "user_id",
+              "type": {
+                "postgresql": "uuid",
+                "mysql": "varchar(36)",
+                "supabase": "uuid"
+              },
+              "references": {
+                "table": "users",
+                "column": "id",
+                "on_delete": "CASCADE"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "migrations": {
+      "enabled": true,
+      "directory": "migrations",
+      "template": {
+        "postgresql": "python-alembic",
+        "mysql": "python-alembic",
+        "supabase": "supabase-cli"
+      }
+    }
+  }
+} 
